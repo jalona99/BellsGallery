@@ -1,0 +1,19 @@
+HTTP/1.1 403 Forbidden
+Date: Wed, 12 Aug 2026 03:56:24 GMT
+Content-Type: video/mp4
+Connection: keep-alive
+Server: cloudflare
+x-cache: Error from cloudfront
+via: 1.1 466478e794b41389f7bd31b12e4e403e.cloudfront.net (CloudFront)
+x-amz-cf-pop: MRS52-P6
+x-amz-cf-id: FeeIubCsSx3rf7Y8C1DSTFqOoCJAC5ljYraiQwBzE5B0JQH6nTzvqQ==
+Cache-Control: max-age=31536000
+vary: Origin
+Content-Disposition: attachment
+Access-Control-Allow-Origin: *
+cf-cache-status: BYPASS
+set-cookie: __cf_bm=8ymH_W_Oau52V_UeQsZtM459ShNeWbvwEk4Fc1jpw84-1786506984.0597558-1.0.1.1-FEsA3AqWwr.StmNOPFTX0261FDE108Y5mHIFJ_njGEIJ26pR2N8sNNc6vX81zvxLcCOxTNV65nIdIEaOq.6QXZyj6QdEBr.bSH_it7J4jKrLKid0AgcjEQh0iAYtSePE; HttpOnly; SameSite=None; Secure; Path=/; Domain=pexels.com; Expires=Wed, 12 Aug 2026 04:26:24 GMT
+set-cookie: _cfuvid=jf23vhuozv0PeMm5P7lDPh58stkih1JsAs5TaP6U_dU-1786506984.0597558-1.0.1.1-XlQD2IG0bT771QVhu_KBvIBN5DNPDaGiw9SiXWZ3RFw; HttpOnly; SameSite=None; Secure; Path=/; Domain=pexels.com
+CF-RAY: a29c8cca5f3bb865-SIN
+alt-svc: h3=":443"; ma=86400
+

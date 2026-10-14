@@ -30,9 +30,19 @@ yarn-error.log*
 .env*.local
 .env.development
 .env.production
+!.env.example
 
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
+
+# binaries and executables
+*.exe
+cloudflared
+cloudflared.exe
+
+# temp test and previews
+*.preview.html
+preview-email-otp.html

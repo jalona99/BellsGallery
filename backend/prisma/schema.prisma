@@ -1,0 +1,168 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER
+}
+
+model User {
+  id               String        @id @default(uuid())
+  name             String
+  email            String        @unique
+  passwordHash     String
+  resetToken       String?
+  resetTokenExpiry DateTime?
+  role             Role          @default(CUSTOMER)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  transactions     Transaction[]
+  addresses        Address[]
+  wishlists        Wishlist[]
+  membership       Membership?
+}
+
+model Address {
+  id            String   @id @default(uuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipientName String
+  phoneNumber   String
+  fullAddress   String
+  city          String
+  postalCode    String
+  isDefault     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Wishlist {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId])
+  @@index([userId])
+  @@index([productId])
+}
+
+model Product {
+  id               String            @id @default(uuid())
+  name             String
+  description      String
+  price            Float
+  imageUrl         String
+  cutoutUrl        String?
+  model3dUrl       String?
+  category         String            @default("pria")
+  subcategory      String            @default("kaos")
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  inventory        Inventory?
+  transactionItems TransactionItem[]
+  wishlists        Wishlist[]
+
+  @@index([category, subcategory])
+}
+
+model Inventory {
+  id            String   @id @default(uuid())
+  productId     String   @unique
+  product       Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  stock         Int      @default(0)
+  reservedStock Int      @default(0)
+  updatedAt     DateTime @updatedAt
+}
+
+model Transaction {
+  id             String            @id @default(uuid())
+  userId         String
+  user           User              @relation(fields: [userId], references: [id])
+  totalAmount    Float
+  subtotal       Float?            @default(0)
+  shippingCost   Float             @default(0)
+  shippingZone   String?           @default("STORE_PICKUP") // STORE_PICKUP, JATIM, JAWA_NON_JATIM, LUAR_JAWA
+  courier        String?           @default("J&T Express") // J&T Express, JNE, SiCepat, AMBIL_DI_TOKO
+  courierService String?           @default("Reguler")     // Reguler, Best, Ambil Toko
+  recipientName  String?
+  phoneNumber    String?
+  fullAddress    String?
+  city           String?
+  postalCode     String?
+  courierNote    String?
+  isGuest        Boolean           @default(false)
+  customerEmail  String?
+  status         String            @default("PENDING") // PENDING, PAID, FAILED
+  snapToken      String?
+  paymentUrl     String?
+  items          TransactionItem[]
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model TransactionItem {
+  id            String      @id @default(uuid())
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  productId     String
+  product       Product     @relation(fields: [productId], references: [id])
+  quantity      Int
+  price         Float
+  size          String?     @default("M")
+  color         String?     @default("DEFAULT")
+  createdAt     DateTime    @default(now())
+
+  @@index([transactionId])
+  @@index([productId])
+}
+
+enum MembershipTier {
+  BRONZE
+  SILVER
+  GOLD
+}
+
+model Membership {
+  id         String         @id @default(uuid())
+  userId     String         @unique
+  phone      String         @unique
+  tier       MembershipTier @default(BRONZE)
+  points     Int            @default(0)
+  joinedAt   DateTime       @default(now())
+  
+  user       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model NewsletterSubscriber {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  registeredAt DateTime @default(now())
+  isActive     Boolean  @default(true)
+}
+
+model OrderTracking {
+  id            String   @id @default(uuid())
+  orderNumber   String   @unique
+  customerName  String
+  courier       String
+  awbNumber     String?
+  status        String   @default("DIPROSES")
+  updatedAt     DateTime @updatedAt
+
+  @@index([status])
+}
+

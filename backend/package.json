@@ -1,28 +1,57 @@
 {
-  "name": "backend",
+  "name": "bellsgallery-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "BellsGallery Backend API - Express, TypeScript, Prisma ORM, PostgreSQL, Redis Mutex, Midtrans Snap & Resilient Dual SMTP",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon --watch src --ext ts --exec tsx src/index.ts",
+    "build": "tsc",
+    "start": "tsx src/index.ts",
+    "tunnel": "tsx src/scripts/startTunnel.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "bellsgallery",
+    "ecommerce",
+    "express",
+    "typescript",
+    "prisma",
+    "postgresql",
+    "redis",
+    "midtrans"
+  ],
+  "author": "Jabar Arya Lokananta",
+  "license": "MIT",
   "type": "commonjs",
   "dependencies": {
+    "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^7.9.1",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
+    "google-auth-library": "^11.1.0",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "midtrans-client": "^1.4.3",
+    "nodemailer": "^9.0.5",
     "pg": "^8.22.0",
     "redis": "^6.2.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^26.1.2",
+    "@types/nodemailer": "^8.0.1",
     "nodemon": "^3.1.14",
+    "prisma": "^7.9.1",
     "ts-node": "^10.9.2",
+    "tsx": "^4.23.5",
     "typescript": "^7.0.2"
   }
 }
