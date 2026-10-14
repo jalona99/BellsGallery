@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
+const isVercel = process.env.VERCEL === "1";
+
 const nextConfig: NextConfig = {
-  output: "standalone",
+  ...(isVercel ? {} : { output: "standalone" }),
   // Allow Cloudflare Tunnel URL and local Wi-Fi LAN to load dev scripts on mobile
   allowedDevOrigins: [
     "*.trycloudflare.com",
